@@ -1,4 +1,4 @@
-﻿# BlogHub - Frontend
+﻿# JOB portal - Frontend
 [![Screenshot](https://pomodo.s3.eu-north-1.amazonaws.com/Screenshot+2025-04-08+122357.png)]([https://your-link.com](https://blog-hub-frontend-phi.vercel.app/))
 
 The BlogHub frontend is developed using React.js with functional components and hooks. It provides a clean UI for user registration, login, and blog management. Authenticated users can create, view, edit, and delete their own posts seamlessly with real-time state updates.
