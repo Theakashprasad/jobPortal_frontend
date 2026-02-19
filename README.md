@@ -83,6 +83,6 @@ project-root/
     ```
 4. Start the server
    ```sh
-   npm start
+   npm run dev
    ```
 
