@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# BlogHub - Frontend
+[![Screenshot](https://pomodo.s3.eu-north-1.amazonaws.com/Screenshot+2025-04-08+122357.png)]([https://your-link.com](https://blog-hub-frontend-phi.vercel.app/))
+
+The BlogHub frontend is developed using React.js with functional components and hooks. It provides a clean UI for user registration, login, and blog management. Authenticated users can create, view, edit, and delete their own posts seamlessly with real-time state updates.
+
+ https://youtu.be/eZ2xl4y49Dg
+## Project Structure
+```
+project-root/
+└── frontend/
+    └── bloghub-frontend/
+        └── src/
+            ├── api/
+            │   └── axiosConfig.ts
+            │   └── authAPI.ts
+            │   └── blogAPI.ts
+            │
+            ├── components/
+            │   ├── Navbar.tsx
+            │   ├── BlogCard.tsx
+            │   ├── ProtectedRoute.tsx
+            │   └── ... (reusable components)
+            │
+            ├── context/
+            │   └── AuthContext.tsx
+            │
+            ├── HOC/
+            │   └── withAuth.tsx
+            │
+            ├── interfaces/
+            │   ├── user.interface.ts
+            │   ├── blog.interface.ts
+            │   └── auth.interface.ts
+            │
+            ├── pages/
+            │   ├── Home.tsx
+            │   ├── Login.tsx
+            │   ├── Register.tsx
+            │   ├── CreateBlog.tsx
+            │   ├── EditBlog.tsx
+            │   ├── BlogDetails.tsx
+            │   └── Profile.tsx
+            │
+            ├── redux/
+            │   ├── slices/
+            │   │   ├── authSlice.ts
+            │   │   └── blogSlice.ts
+            │   └── rootReducer.ts
+            │
+            ├── routes/
+            │   └── AppRoutes.tsx
+            │
+            ├── store/
+            │   └── store.ts
+            │
+            ├── utils/
+            │   ├── tokenHandler.ts
+            │   ├── formatDate.ts
+            │   └── toastConfig.ts
+            │
+            └── main.tsx / index.tsx
+
+```
+## Features
+
+- User registration and authentication
+  - Login
+  - Registration
+  - Blog Management 
+- CRUD operations for blog 
+  - Listing blog posts
+  - Inline delete & edit options
+  - PopUp action for creating new posts
+- Responsive UI
+
+## Technologies Used
+
+- context, Zustand
+- Axios for API requests
+- React Router for navigation
+- Tailwind CSS for styling
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- React.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository
+   ```sh
+   https://github.com/Theakashprasad/BlogHub_frontend.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
+3.  **Environment Variables**:
 
-## Learn More
+        Ensure that the environment variables are correctly set in a `.env` file, in the location .env.example is located. Here is an example of the required environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+        ```
+        VITE_BACKEND_URL = http://localhost:3000
+        
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```
+4. Start the server
+   ```sh
+   npm start
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
