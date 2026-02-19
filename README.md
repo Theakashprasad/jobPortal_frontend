@@ -8,55 +8,30 @@ The JobPortal frontend is developed using Next.js with functional components and
 ```
 project-root/
 └── frontend/
-    └── bloghub-frontend/
-        └── src/
-            ├── api/
-            │   └── axiosConfig.ts
-            │   └── authAPI.ts
-            │   └── blogAPI.ts
+    └── jobPortal-frontend/
+        └── ├── app/
+            │   └── (auth)
+            │   └── jobs
             │
             ├── components/
-            │   ├── Navbar.tsx
-            │   ├── BlogCard.tsx
+            │   ├── Dashboard.tsx
+            │   ├── job.tsx
             │   ├── ProtectedRoute.tsx
             │   └── ... (reusable components)
             │
-            ├── context/
-            │   └── AuthContext.tsx
+            ├── lib/
+            │   └── tokenHandler.ts
             │
-            ├── HOC/
-            │   └── withAuth.tsx
+            ├── services/
+            │   └── auth.service
+            │   └── job.service
             │
-            ├── interfaces/
-            │   ├── user.interface.ts
-            │   ├── blog.interface.ts
-            │   └── auth.interface.ts
+            ├── types/
+            │   └── auth.tsx
+            │   └── job.tsx
             │
-            ├── pages/
-            │   ├── Home.tsx
-            │   ├── Login.tsx
-            │   ├── Register.tsx
-            │   ├── CreateBlog.tsx
-            │   ├── EditBlog.tsx
-            │   ├── BlogDetails.tsx
-            │   └── Profile.tsx
-            │
-            ├── redux/
-            │   ├── slices/
-            │   │   ├── authSlice.ts
-            │   │   └── blogSlice.ts
-            │   └── rootReducer.ts
-            │
-            ├── routes/
-            │   └── AppRoutes.tsx
-            │
-            ├── store/
-            │   └── store.ts
-            │
-            ├── utils/
-            │   ├── tokenHandler.ts
-            │   ├── formatDate.ts
-            │   └── toastConfig.ts
+            ├── middleware/
+            │   
             │
             └── main.tsx / index.tsx
 
