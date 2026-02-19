@@ -1,6 +1,7 @@
 ﻿# JOB portal - Frontend
 
-<img width="599" height="370" alt="image" src="https://github.com/user-attachments/assets/359482b6-dce3-4015-a6d9-2bc565136bce" />
+<img width="1917" height="1065" alt="image" src="https://github.com/user-attachments/assets/05f7e2e1-039c-4d2e-8880-756ecb4398df" />
+
 
 The JobPortal frontend is developed using Next.js with functional components and hooks. It offers a clean and responsive UI for user interactions. Authenticated users can add, view, edit, and delete job postings seamlessly, with real-time state updates ensuring smooth user experience.
 
