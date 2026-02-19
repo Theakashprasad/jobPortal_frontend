@@ -23,6 +23,7 @@ export interface LoginDto {
 }
 
 export interface LoginResponse {
+  existingUser: any;
   message?: string;
   user?: {
     id: string;
@@ -48,5 +49,6 @@ export interface AccountSetupDto {
 }
 
 export interface AccountSetupResponse {
+  user: any;
   message?: string;
 }

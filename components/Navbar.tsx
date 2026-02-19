@@ -20,7 +20,7 @@ export default function Navbar({onPostJob }: NavbarProps) {
         Post a Job
       </button>
       <div className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold cursor-pointer">
-        D
+        
       </div>
     </header>
   );

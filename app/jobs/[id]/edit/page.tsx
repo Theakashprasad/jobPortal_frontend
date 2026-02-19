@@ -257,39 +257,40 @@ export default function EditJobPage() {
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden">
+    <div className="flex-1 flex flex-col h-full overflow-hidden ">
  
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto px-8 py-6">
-        {/* Page header */}
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-lg font-bold text-[#18191C]">Edit Job Details</h1>
-          <div className="flex items-center gap-2">
-            {error && (
-              <p className="text-sm text-red-500 mr-2">{error}</p>
-            )}
-            {success && (
-              <p className="text-sm text-green-500 mr-2">Job updated successfully!</p>
-            )}
-            <button
-              onClick={handleCancel}
-              className="px-5 py-2 rounded-lg border border-[#E7E7E7] text-sm font-semibold text-[#474C54] hover:bg-gray-50 transition-all"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="px-6 py-2 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? "Saving..." : "Save"}
-            </button>
+      <main className="flex-1 overflow-y-auto px-8 py-6 flex flex-col items-center">
+        <div className="w-full max-w-3xl">
+          {/* Page header */}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-lg font-bold text-[#18191C]">Edit Job Details</h1>
+            <div className="flex items-center gap-2">
+              {error && (
+                <p className="text-sm text-red-500 mr-2">{error}</p>
+              )}
+              {success && (
+                <p className="text-sm text-green-500 mr-2">Job updated successfully!</p>
+              )}
+              <button
+                onClick={handleCancel}
+                className="px-5 py-2 rounded-lg border border-[#E7E7E7] text-sm font-semibold text-[#474C54] hover:bg-gray-50 transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="px-6 py-2 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving ? "Saving..." : "Save"}
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Form */}
-        <div className="max-w-3xl space-y-0">
+          {/* Form */}
+          <div className="space-y-0">
           {/* Basic info */}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div>
@@ -413,6 +414,7 @@ export default function EditJobPage() {
             className="w-full border border-[#E7E7E7] rounded-xl px-4 py-3 text-sm text-[#474C54] bg-white leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#0A65CC]/20 focus:border-[#0A65CC] transition-all resize-none"
             placeholder="Enter job description..."
           />
+          </div>
         </div>
       </main>
     </div>

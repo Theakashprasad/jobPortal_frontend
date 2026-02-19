@@ -24,7 +24,7 @@ export interface Job {
 
 export interface CreateJobDto {
   title: string;
-  companyId?: number;
+  companyId?: string;
   country?: string;
   city?: string;
   educationLevel?: string;

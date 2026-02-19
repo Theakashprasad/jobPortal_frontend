@@ -61,7 +61,20 @@ export default function Dashboard() {
   const loadJobs = async () => {
     try {
       setLoading(true);
-      const apiJobs = await getJobs("123");
+      const userIdStr = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+      let userId: string | null = null;
+      if (userIdStr) {
+        try {
+          userId = JSON.parse(userIdStr);
+        } catch {
+          userId = userIdStr;
+        }
+      }
+      if (!userId) {
+        setJobs([]);
+        return;
+      }
+      const apiJobs = await getJobs(userId);
 
       const mapped: JobsTableJob[] = apiJobs.map((job: any) => {
         const status: "Active" | "Expired" =
@@ -94,7 +107,7 @@ export default function Dashboard() {
   };
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden">
-    
+
       {/* Content */}
       <main className="flex-1 overflow-y-auto px-8 py-6">
         {/* Greeting */}
@@ -106,14 +119,13 @@ export default function Dashboard() {
         </div>
 
         {/* Stats */}
-        <div className="flex gap-4 mb-2">
-          <StatCard
-            value={loading ? 0 : jobs.length}
-            label="Open Jobs"
-            icon={Briefcase}
-            color="#0A65CC"
-            bg="#EEF5FF"
-          />
+        <div className="flex gap-4 mb-2 w-1/2">          <StatCard
+          value={loading ? 0 : jobs.length}
+          label="Open Jobs"
+          icon={Briefcase}
+          color="#0A65CC"
+          bg="#EEF5FF"
+        />
           <StatCard
             value={0}
             label="Saved Candidates"

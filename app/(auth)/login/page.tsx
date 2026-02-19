@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Zap } from "lucide-react";
+import { Eye, EyeOff, Loader2, Zap } from "lucide-react";
+import { toast } from "sonner";
 import { login } from "@/services/auth.service";
 
 interface LoginPageProps {
@@ -23,12 +24,16 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
     // Validation
     if (!email.trim()) {
-      setError("Email or username is required");
+      const msg = "Email or username is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!password) {
-      setError("Password is required");
+      const msg = "Password is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -46,12 +51,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
       // Store user data if provided
       if (response.user) {
-        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("userDataId", JSON.stringify(response.existingUser._id));
       }
 
-  
-
-      // Navigate to jobs page or dashboard
+      toast.success("Welcome back! Redirecting...");
       router.push("/jobs");
     } catch (err: any) {
       console.error("Login error:", err);
@@ -60,6 +63,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         err?.message ||
         "Failed to log in. Please check your credentials and try again.";
       setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -138,9 +142,16 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all mt-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC]"
+            className="w-full py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all mt-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC] flex items-center justify-center gap-2"
           >
-            {loading ? "Logging In..." : "Log In"}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Logging In...
+              </>
+            ) : (
+              "Log In"
+            )}
           </button>
         </form>
 

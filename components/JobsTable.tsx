@@ -101,19 +101,19 @@ export default function JobsTable({
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 ">
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-semibold text-[#18191C]">Recently Posted Jobs</h2>
+      <div className="flex  items-center justify-between mb-3">
+        <h2 className="text-base  font-semibold text-[#18191C]">Recently Posted Jobs</h2>
         <button className="text-sm font-medium text-[#0A65CC] hover:underline transition-all">
           View all
         </button>
       </div>
 
         {/* Table */}
-        <div className="bg-white rounded-2xl border border-[#E7E7E7] overflow-hidden">
+        <div className="bg-white rounded-2xl border border-[#E7E7E7] ">
         {/* Table Header */}
-        <div className="grid grid-cols-[2fr_1fr_1fr_120px] px-5 py-3 border-b border-[#E7E7E7]">
+        <div className="bg-[#F7F7F7] grid grid-cols-[2fr_1fr_1fr_120px] px-5 py-3 border-b border-[#E7E7E7]">
           {["Jobs", "Status", "Applications", "Actions"].map((h) => (
             <span key={h} className="text-xs font-semibold text-[#767F8C] uppercase tracking-wide">
               {h}
@@ -168,7 +168,7 @@ export default function JobsTable({
             <div className="flex items-center gap-2 relative">
               <button
                 onClick={() => router.push(`/jobs/${job.id}`)}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#E8F1FB] text-[#0A65CC] text-xs font-semibold hover:bg-[#0A65CC] hover:text-white transition-all duration-150"
+                className="flex items-center gap-1.5 px-5 py-1.5 rounded-2xl bg-[#E8F1FB] text-[#0A65CC] text-xs font-semibold hover:bg-[#0A65CC] hover:text-white transition-all duration-150"
               >
                 <Eye size={12} />
                 View Job

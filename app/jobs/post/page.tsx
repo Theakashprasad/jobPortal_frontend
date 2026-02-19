@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronDown, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 const roleOptions = ["Select", "Designer", "Developer", "Manager", "Marketing", "Sales", "Other"];
 const salaryTypeOptions = ["", "Yearly", "Monthly", "Hourly"];
@@ -122,39 +123,77 @@ export default function PostJobView({ onPosted }: PostJobViewProps) {
   
   const [form, setForm] = useState(empty);
   const [submitted, setSubmitted] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const userIdStr = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+    if (userIdStr) {
+      try {
+        setUserId(JSON.parse(userIdStr));
+      } catch {
+        setUserId(userIdStr);
+      }
+    }
+  }, []);
 
   const set = (key: keyof typeof form) => (value: string | boolean) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
 
   const handleSubmit = async () => {
+    setSuccess(false);
+    setError(null);
+
+    // Validation
+    if (!userId) {
+      const msg = "Session expired. Please log in again.";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (!form.title?.trim()) {
+      const msg = "Job title is required";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (form.jobRole === "Select" || !form.jobRole) {
+      const msg = "Job role is required";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (form.country === "Select" || form.city === "Select") {
+      const msg = "Please select country and city";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (!form.description?.trim()) {
+      const msg = "Job description is required";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
     try {
       setLoading(true);
-      setSuccess(false);
-      setError(null);
-  
-      // Basic validation
-      if (!form.title || form.title === "") {
-        setError("Job title is required");
-        return;
-      }
-  
-      if (form.country === "Select" || form.city === "Select") {
-        setError("Please select country and city");
-        return;
-      }
-  
+
       const payload = {
-        title: form.title,
-        companyId: 123, // later make dynamic
+        title: form.title.trim(),
+        companyId: userId,
         location: form.fullyRemote,
-          city:form.city,
-          country:form.country,
-          minSalary:form.minSalary,
-          maxSalary:form.maxSalary,
-          salaryType:form.salaryType,
-        description: form.description,
+        city: form.city,
+        country: form.country,
+        minSalary: form.minSalary,
+        maxSalary: form.maxSalary,
+        salaryType: form.salaryType,
+        description: form.description.trim(),
         tags: form.tags,
         jobRole: form.jobRole,
         educationLevel: form.educationLevel,
@@ -164,14 +203,19 @@ export default function PostJobView({ onPosted }: PostJobViewProps) {
         expirationDate: form.expirationDate,
       };
       await createJob(payload);
-  
+
       setSuccess(true);
       setForm(empty);
+      toast.success("Job posted successfully! Redirecting...");
       router.push("/jobs");
-
     } catch (err: any) {
       console.error(err);
-      setError("Failed to create job. Please try again.");
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Failed to create job. Please try again.";
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -182,10 +226,16 @@ export default function PostJobView({ onPosted }: PostJobViewProps) {
    
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto px-8 py-6">
-        <h1 className="text-lg font-bold text-[#18191C] mb-5">Post a job</h1>
+      <main className="flex-1 overflow-y-auto px-8 py-6 flex flex-col items-center">
+        <div className="w-full max-w-3xl">
+          <h1 className="text-lg font-bold text-[#18191C] mb-5">Post a job</h1>
 
-        <div className="max-w-3xl">
+          {error && (
+            <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200">
+              <p className="text-sm text-red-600">{error}</p>
+            </div>
+          )}
+
           {/* Basic info */}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div>
@@ -298,20 +348,21 @@ export default function PostJobView({ onPosted }: PostJobViewProps) {
 
           {/* Submit */}
           <button
-  onClick={handleSubmit}
-  disabled={loading}
-  className={`px-8 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
-    loading
-      ? "bg-gray-400 text-white cursor-not-allowed"
-      : "bg-[#0A65CC] text-white hover:bg-[#0855B0]"
-  }`}
->
-  {loading ? "Posting..." : success ? "✓ Job Posted!" : "Post Job"}
-</button>
-{error && (
-  <p className="text-red-500 text-sm mb-4">{error}</p>
-)}
-
+            onClick={handleSubmit}
+            disabled={loading}
+            className="px-8 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed bg-[#0A65CC] text-white hover:bg-[#0855B0] disabled:hover:bg-[#0A65CC]"
+          >
+            {loading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Posting...
+              </>
+            ) : success ? (
+              "✓ Job Posted!"
+            ) : (
+              "Post Job"
+            )}
+          </button>
         </div>
       </main>
     </div>

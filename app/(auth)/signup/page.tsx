@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { signUp } from "@/services/auth.service";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -23,32 +26,51 @@ export default function SignUpPage() {
 
     // Validation
     if (!firstName.trim()) {
-      setError("first name is required");
+      const msg = "First name is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!lastName.trim()) {
-      setError("Username is required");
+      const msg = "Last name is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!email.trim()) {
-      setError("Email is required");
+      const msg = "Email is required";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      const msg = "Please enter a valid email address";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!password) {
-      setError("Password is required");
+      const msg = "Password is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      const msg = "Password must be at least 6 characters";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      const msg = "Passwords do not match";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -67,7 +89,7 @@ export default function SignUpPage() {
         localStorage.setItem("userId", JSON.stringify(response._id));
       }
 
-      // Navigate to account setup or login page
+      toast.success("Account created! Redirecting to setup...");
       router.push("/accountSetup");
     } catch (err: any) {
       console.error("Signup error:", err);
@@ -76,6 +98,7 @@ export default function SignUpPage() {
         err?.message ||
         "Failed to create account. Please try again.";
       setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -214,9 +237,16 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all mt-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC]"
+            className="w-full py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all mt-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC] flex items-center justify-center gap-2"
           >
-            {loading ? "Signing Up..." : "Sign Up"}
+            {loading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Signing Up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
 

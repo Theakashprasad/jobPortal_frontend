@@ -2,8 +2,11 @@
 
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, ChevronDown } from "lucide-react";
+import { Upload, ChevronDown, Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { completeAccountSetup } from "@/services/auth.service";
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function AccountSetupPage() {
   const router = useRouter();
@@ -43,9 +46,11 @@ export default function AccountSetupPage() {
     // Get userId from localStorage
     const userIdStr = localStorage.getItem("userId");
     if (!userIdStr) {
-      setError("User session expired. Please sign up again.");
+      const msg = "User session expired. Please sign up again.";
+      setError(msg);
+      toast.error(msg);
       setTimeout(() => {
-        router.push("/singup");
+        router.push("/signup");
       }, 2000);
       return;
     }
@@ -61,49 +66,76 @@ export default function AccountSetupPage() {
 
     // Basic validation
     if (!companyName.trim()) {
-      setError("Company name is required");
+      const msg = "Company name is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!orgType) {
-      setError("Organization type is required");
+      const msg = "Organization type is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!industryType) {
-      setError("Industry type is required");
+      const msg = "Industry type is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!teamSize) {
-      setError("Team size is required");
+      const msg = "Team size is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!yearEstablished.trim()) {
-      setError("Year of establishment is required");
+      const msg = "Year of establishment is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     if (!location.trim()) {
-      setError("Location is required");
+      const msg = "Location is required";
+      setError(msg);
+      toast.error(msg);
       return;
     }
-
-    if (!contactNumber.trim()) {
-      setError("Contact number is required");
+    if (
+      !contactNumber.trim() ||           // empty string
+      contactNumber.length < 10 ||       // too short
+      isNaN(Number(contactNumber))       // not a number
+    ) {
+      const msg = "Contact number is required and must be numeric";
+      setError(msg);
+      toast.error(msg);
       return;
     }
+    
 
     if (!email.trim()) {
-      setError("Email is required");
+      const msg = "Email is required";
+      setError(msg);
+      toast.error(msg);
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      const msg = "Please enter a valid email address";
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
     try {
       setLoading(true);
 
-      await completeAccountSetup({
+      const data =  await completeAccountSetup({
         userId,
         companyName: companyName.trim(),
         orgType,
@@ -116,9 +148,10 @@ export default function AccountSetupPage() {
         email: email.trim(),
         // logo: logoPreview,
       });
+   localStorage.setItem("userDataId", JSON.stringify(data.user._id));
 
-      // After successful setup, go to jobs dashboard
-      router.push("/jobs");
+      toast.success("Account setup complete! Redirecting...");
+      router.push("/accountSetup/success");
     } catch (err: any) {
       console.error("Account setup error:", err);
       const errorMessage =
@@ -126,6 +159,7 @@ export default function AccountSetupPage() {
         err?.message ||
         "Failed to finish account setup. Please try again.";
       setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -350,9 +384,16 @@ export default function AccountSetupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="px-8 py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC]"
+              className="px-8 py-2.5 rounded-lg bg-[#0A65CC] text-white text-sm font-semibold hover:bg-[#0855B0] active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#0A65CC] flex items-center justify-center gap-2"
             >
-              {loading ? "Finishing Setup..." : "Finish Setup"}
+              {loading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Finishing Setup...
+                </>
+              ) : (
+                "Finish Setup"
+              )}
             </button>
           </div>
 

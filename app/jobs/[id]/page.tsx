@@ -209,62 +209,70 @@ export default function JobDetailView() {
 
           </div>
 
-          {/* Right: Meta panel */}
-          <div className="w-56 flex-shrink-0 space-y-4">
-            {/* Salary card */}
-            <div className="bg-white rounded-2xl border border-[#E7E7E7] p-4">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-xs text-[#767F8C] mb-1">Salary (USD)</p>
-                  <p className="text-base font-bold text-[#0A65CC]">{job.salary}</p>
-                  <p className="text-xs text-[#767F8C] mt-0.5">Yearly salary</p>
-                </div>
-                <div className="w-8 h-8 rounded-lg bg-[#E8F1FB] flex items-center justify-center">
-                  <DollarSign size={15} className="text-[#0A65CC]" />
-                </div>
-              </div>
-              <hr className="my-3 border-[#F0F0F0]" />
-              <div className="flex items-start gap-2">
-                <MapPin size={14} className="text-[#767F8C] mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-xs text-[#767F8C]">Job Location</p>
-                  <p className="text-sm font-semibold text-[#18191C]">{job.location}</p>
-                </div>
-              </div>
-            </div>
+         {/* Right: Meta panel */}
+<div className="w-145 flex-shrink-0 space-y-4">
 
-            {/* Job Overview card */}
-            <div className="bg-white rounded-2xl border border-[#E7E7E7] p-4">
-              <h4 className="text-sm font-semibold text-[#18191C] mb-3">Job Overview</h4>
-              <div className="grid grid-cols-2 gap-3">
-                <OverviewItem
-                  icon={<Calendar size={14} className="text-[#0A65CC]" />}
-                  label="Job Posted"
-                  value={job.jobPosted}
-                />
-                <OverviewItem
-                  icon={<Clock size={14} className="text-[#E05151]" />}
-                  label="Job Expires on"
-                  value={job.jobExpires}
-                />
-                <OverviewItem
-                  icon={<Briefcase size={14} className="text-[#767F8C]" />}
-                  label="Job Level"
-                  value={job.jobLevel}
-                />
-                <OverviewItem
-                  icon={<Calendar size={14} className="text-[#767F8C]" />}
-                  label="Experience"
-                  value={job.experience}
-                />
-                <OverviewItem
-                  icon={<GraduationCap size={14} className="text-[#767F8C]" />}
-                  label="Education"
-                  value={job.education}
-                />
-              </div>
-            </div>
-          </div>
+{/* Salary card */}
+<div className="bg-white rounded-2xl border border-[#E7E7E7] p-5">
+  <div className="flex items-center justify-between gap-4">
+    
+    {/* Salary */}
+    <div className="text-center flex-1">
+      <p className="text-xs text-[#767F8C] mb-1">Salary (USD)</p>
+      <p className="text-base font-bold text-[#0BA02C]">{job.salary}</p>
+      <p className="text-xs text-[#767F8C] mt-0.5">Yearly salary</p>
+    </div>
+
+    {/* Vertical divider */}
+    <div className="w-px h-14 bg-[#F0F0F0] flex-shrink-0" />
+
+    {/* Location */}
+    <div className="flex flex-col items-center flex-1 gap-1">
+      <div className="w-8 h-8 rounded-lg bg-[#F0F5FF] flex items-center justify-center mb-1">
+        <MapPin size={15} className="text-[#0A65CC]" />
+      </div>
+      <p className="text-xs text-[#767F8C]">Job Location</p>
+      <p className="text-sm font-semibold text-[#18191C]">{job.location}</p>
+    </div>
+
+  </div>
+</div>
+
+{/* Job Overview card */}
+<div className="bg-white rounded-2xl border border-[#E7E7E7] p-4">
+  <h4 className="text-sm font-semibold text-[#18191C] mb-4">Job Overview</h4>
+  <div className="grid grid-cols-3 gap-y-4 gap-x-2">
+    <OverviewItem
+      icon={<Calendar size={14} className="text-[#0A65CC]" />}
+      label="Job Posted"
+      value={job.jobPosted}
+    />
+    <OverviewItem
+      icon={<Clock size={14} className="text-[#E05151]" />}
+      label="Job Expires on"
+      value={job.jobExpires}
+    />
+    <OverviewItem
+      icon={<Briefcase size={14} className="text-[#767F8C]" />}
+      label="Job Level"
+      value={job.jobLevel}
+    />
+    <OverviewItem
+      icon={<Calendar size={14} className="text-[#767F8C]" />}
+      label="Experience"
+      value={job.experience}
+    />
+    <OverviewItem
+      icon={<GraduationCap size={14} className="text-[#767F8C]" />}
+      label="Education"
+      value={job.education}
+    />
+  </div>
+</div>
+
+</div>
+
+
         </div>
       </main>
     </div>
