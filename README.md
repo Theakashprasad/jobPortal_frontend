@@ -34,26 +34,31 @@ project-root/
             │   
             │
             └── main.tsx / index.tsx
-
-```
 ## Features
 
 - User registration and authentication
+  - Signup
   - Login
-  - Registration
-  - Blog Management 
-- CRUD operations for blog 
-  - Listing blog posts
-  - Inline delete & edit options
-  - PopUp action for creating new posts
+  - Account setup (company details)
+- Job Management (CRUD)
+  - Listing jobs in dashboard
+  - View, edit, delete jobs
+  - Create new job via form
 - Responsive UI
+  - Dashboard with sidebar and navbar
+  - Toast notifications for actions
+  - Delete confirmation modals
+  - Job status & days remaining
 
 ## Technologies Used
 
-- context, Zustand
-- Axios for API requests
-- React Router for navigation
+- Next.js (App Router) + React (functional components & hooks)
+- TypeScript
 - Tailwind CSS for styling
+- Axios for API requests
+- Sonner for notifications
+- Lucide React for icons
+- Cookie-based auth with middleware
 
 ## Getting Started
 
