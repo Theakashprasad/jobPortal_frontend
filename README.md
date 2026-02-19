@@ -1,9 +1,9 @@
 ﻿# JOB portal - Frontend
-[![Screenshot](https://pomodo.s3.eu-north-1.amazonaws.com/Screenshot+2025-04-08+122357.png)]([https://your-link.com](https://blog-hub-frontend-phi.vercel.app/))
+
+<img width="599" height="370" alt="image" src="https://github.com/user-attachments/assets/359482b6-dce3-4015-a6d9-2bc565136bce" />
 
 The JobPortal frontend is developed using Next.js with functional components and hooks. It offers a clean and responsive UI for user interactions. Authenticated users can add, view, edit, and delete job postings seamlessly, with real-time state updates ensuring smooth user experience.
 
- https://youtu.be/eZ2xl4y49Dg
 ## Project Structure
 ```
 project-root/
