@@ -59,7 +59,7 @@ project-root/
 
 ### Prerequisites
 
-- React.js
+- Next
 
 
 ### Installation
