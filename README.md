@@ -1,7 +1,7 @@
 ﻿# JOB portal - Frontend
 [![Screenshot](https://pomodo.s3.eu-north-1.amazonaws.com/Screenshot+2025-04-08+122357.png)]([https://your-link.com](https://blog-hub-frontend-phi.vercel.app/))
 
-The BlogHub frontend is developed using React.js with functional components and hooks. It provides a clean UI for user registration, login, and blog management. Authenticated users can create, view, edit, and delete their own posts seamlessly with real-time state updates.
+The JobPortal frontend is developed using Next.js with functional components and hooks. It offers a clean and responsive UI for user interactions. Authenticated users can add, view, edit, and delete job postings seamlessly, with real-time state updates ensuring smooth user experience.
 
  https://youtu.be/eZ2xl4y49Dg
 ## Project Structure
